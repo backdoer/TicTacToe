@@ -12,22 +12,35 @@ function generateBoard() {
 		return board;
 }
 
+
 app.controller("BoardCtrl", function($scope) {
 
-	$scope.winner = null;
-	$scope.board = generateBoard();
-	$scope.onX = true;
+	function initBoard(){
+		$scope.winner = null;
+		$scope.cat = false;
+		$scope.board = generateBoard();
+		$scope.onX = true;
+	}
+	
+	//Initialize the board
+	initBoard();
+
+	var gasps = [
+		new Audio('assets/gasp1.wav'), 
+		new Audio('assets/gasp2.wav'), 
+		new Audio('assets/gasp3.wav')
+	]
 
 	var board = document.getElementById("board");
 
 	$scope.reset = function(){
-		$scope.board = generateBoard();
-		$scope.winner = null;
+		initBoard();
 		board.classList.remove("disabled");
 	}
 
 	$scope.changeVal = function(cell) {
 		if (!cell.val){
+			
 			if ($scope.onX) {
 				cell.val = 'X';
 				$scope.onX = false;
@@ -36,16 +49,32 @@ app.controller("BoardCtrl", function($scope) {
 				cell.val = 'O';
 				$scope.onX = true;
 			}
-			checkForVictor();
+
+			checkForVictor(function (){
+					gasps[Math.floor((Math.random() * 3))].play();
+				});
 		}
 		
 	};
 
-	function checkForVictor() {
+	function checkForVictor(cb) {
 		var winner = testSolutions();
 		if (winner) {
 			$scope.winner = winner;
 			board.classList.add("disabled");
+			var audio = (audio) ? audio : new Audio('assets/applause.mp3');
+			audio.play();
+		}
+		else {
+			var cat = testCat();
+			if (cat){
+				$scope.cat = true;
+				var catAudio = (catAudio) ? catAudio : new Audio('assets/cat.wav');
+				catAudio.play();
+			}
+			else{
+				cb();
+			}
 		}
 		
 	}
@@ -61,6 +90,18 @@ app.controller("BoardCtrl", function($scope) {
 			}
 		}
 		return false;
+	}
+
+	function testCat() {
+		var emptyCell = false;
+		for (var i = 0; i < 3; i++) {
+			for (var j = 0; j < 3; j++) {
+				if ($scope.board[i][j].val == null) {
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 
 	function getVal(row, col){

@@ -1,0 +1,52 @@
+td {
+	border: 1px solid black;
+	margin: 0px;
+	height: 100px;
+	width: 100px;
+	text-align: center;
+	background-color: white;
+	font-weight: bold;
+	font-style: italic;
+	font-size: 35px;
+	font-family: Courier;
+}
+
+tr {
+	background-color: white;
+	cursor: pointer;
+}
+
+.disabled {
+	pointer-events:none;
+}
+html, body {
+    height: 100%;
+}
+
+html {
+    display: table;
+    margin: auto;
+}
+
+body {
+    display: table-cell;
+    vertical-align: middle;
+    background-color: black;
+}
+h2, h1 {
+	color: white;
+	text-align: center;
+}
+button {
+	padding-top: 20px;
+	padding-bottom: 20px;
+	padding-right: 50px;
+	padding-left: 50px;
+	border-radius: 10px;
+	font-size: 15px;
+	background-color: white;
+	margin:auto;
+		display:block;
+		cursor: pointer;
+
+}
