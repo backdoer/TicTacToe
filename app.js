@@ -21,7 +21,7 @@ app.controller("BoardCtrl", function($scope) {
 		$scope.board = generateBoard();
 		$scope.onX = true;
 	}
-	
+
 	//Initialize the board
 	initBoard();
 
