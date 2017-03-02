@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+<style>
+	td {
+		border: 1px solid black;
+		margin: 0px;
+		height: 100px;
+		width: 100px;
+		text-align: center;
+	}
+
+	.disabled {
+		pointer-events:none;
+	}
+</style>
+
+<body ng-app='TicTacToe'>
+	<div ng-controller="BoardCtrl">
+		<h1 ng-show="winner"> {{winner}} wins!</h1>
+		<table id="board">
+		  <tr ng-repeat="row in board">
+		    <td ng-click="changeVal(cell)" ng-bind="cell.val" ng-repeat="cell in row">
+		    </td>
+		  </tr>
+		</table>
+		<button type="button" ng-click="reset()">Reset</button>
+	</div>
+	<script src="app.js"></script>
+</body>
+</html>
