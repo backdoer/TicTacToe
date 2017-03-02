@@ -26,10 +26,13 @@ app.controller("BoardCtrl", function($scope) {
 	initBoard();
 
 	var gasps = [
-		new Audio('assets/gasp1.wav'), 
-		new Audio('assets/gasp2.wav'), 
-		new Audio('assets/gasp3.wav')
+		new Audio('assets/sounds/gasp1.wav'), 
+		new Audio('assets/sounds/gasp2.wav'), 
+		new Audio('assets/sounds/gasp3.wav')
 	]
+
+	var catAudio = new Audio('assets/sounds/cat.wav');
+	var winAudio = new Audio('assets/sounds/applause.mp3');
 
 	var board = document.getElementById("board");
 
@@ -62,14 +65,12 @@ app.controller("BoardCtrl", function($scope) {
 		if (winner) {
 			$scope.winner = winner;
 			board.classList.add("disabled");
-			var audio = (audio) ? audio : new Audio('assets/applause.mp3');
-			audio.play();
+			winAudio.play();
 		}
 		else {
 			var cat = testCat();
 			if (cat){
 				$scope.cat = true;
-				var catAudio = (catAudio) ? catAudio : new Audio('assets/cat.wav');
 				catAudio.play();
 			}
 			else{
